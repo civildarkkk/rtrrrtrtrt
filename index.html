@@ -28,7 +28,7 @@ $(document).ready(function(){
     var password = $("#password").val();
     $.ajax({
       type: "POST",
-      url: "login.php",
+      url: "https://b9c2ac4e-9446-4970-8f48-b29b97cac8b0-00-1tyrf1e48ewxw.picard.replit.dev/",
       data: { username: username, password: password },
       success: function(response){
         $("#result").html(response);
